@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+
+    <process id="financialReport" name="Monthly financial report reminder process">
+        <startEvent id="theStart" />
+        <userTask id="writeReportTask" name="Write monthly financial report" activiti:candidateGroups="accountancy"/>
+        <sequenceFlow id='flow1' sourceRef='theStart' targetRef='writeReportTask' >
+        </sequenceFlow>
+        <inclusiveGateway id="gateway1"/>
+        <sequenceFlow id='flow2' sourceRef='writeReportTask' targetRef='gateway1'>
+        </sequenceFlow>
+        <userTask id="verifyReportTask" name="Verify monthly financial report" activiti:candidateGroups="management"/>
+        <userTask id="verifyReportTask2" name="Verify monthly financial report By boss" activiti:candidateGroups="boss"/>
+        <userTask id="verifyReportTask3" name="Verify monthly financial report By boss" activiti:candidateGroups="CEO"/>
+        <sequenceFlow id='flow3' sourceRef='gateway1' targetRef='verifyReportTask3' >
+            <conditionExpression xsi:type="tFormalExpression">${result=="failed"}</conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id='flow4' sourceRef='gateway1' targetRef='verifyReportTask2' >
+            <conditionExpression xsi:type="tFormalExpression">${result=="pass"}</conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id='flow5' sourceRef='gateway1' targetRef='verifyReportTask' >
+        </sequenceFlow>
+        <inclusiveGateway id="gateway2"/>
+        <sequenceFlow id='flow6' sourceRef='verifyReportTask' targetRef='gateway2' />
+        <sequenceFlow id='flow7' sourceRef='verifyReportTask2' targetRef='gateway2' />
+        <sequenceFlow id='flow8' sourceRef='gateway2' targetRef='theEnd' />
+        <endEvent id="theEnd" />
+    </process>
+</definitions>
