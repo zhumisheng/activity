@@ -12,9 +12,9 @@
     <appender name="file"  
         class="ch.qos.logback.core.rolling.RollingFileAppender">  
         <Encoding>UTF-8</Encoding>  
-        <File>/app/logs/ybxmglweb/log.log</File>
+        <File>D:/logs/ybxmgltask/log.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
-            <FileNamePattern>/app/logs/ybxmglweb/log_%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>D:/logs/ybxmgltask/log_%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>10</MaxHistory>  
             <TimeBasedFileNamingAndTriggeringPolicy  
                 class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  

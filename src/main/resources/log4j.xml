@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"> 
+             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%C][Line:%L] %m%n</pattern>
+        </encoder>
+    </appender>
+    
+     <!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->  
+    <appender name="file"  
+        class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <Encoding>UTF-8</Encoding>  
+        <File>D:/logs/ybxmgltask/log.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <FileNamePattern>D:/logs/ybxmgltask/log_%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>10</MaxHistory>  
+            <TimeBasedFileNamingAndTriggeringPolicy  
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%C][Line:%L] %m%n
+            </pattern>  
+        </layout>  
+    </appender>
+
+    <logger name="com.cpic.core.mapper" level="DEBUG" additivity="false">
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="org.apache.ibatis.logging.jdbc.BaseJdbcLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="org.activiti.engine.impl" level="DEBUG" additivity="false">
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+
+     <!-- 日志级别 -->  
+    <root>  
+        <!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 -->  
+        <level value="info" />
+        <appender-ref ref="file" />   
+        <appender-ref ref="console" />  
+    </root>  
+    
+</configuration>
